@@ -2,12 +2,19 @@
  * Created by sindre on 6/25/15.
  */
 
-const React = require("react");
+import React from 'react';
+import DefaultLayout from './layout/default';
 
-let Test = React.createClass({
-    render: function(){
-        return <div> Hello {this.props.name} </div>;
+class HelloName extends React.Component {
+
+    render() {
+        return (
+            <DefaultLayout title={this.props.title}>
+                <div> Hello {this.props.name} </div>
+            </DefaultLayout>
+        );
     }
-});
 
-module.exports = Test;
+}
+
+export default HelloName;

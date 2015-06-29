@@ -1,24 +1,22 @@
-
-/**
- * Module dependencies.
- */
-
-const express = require('express');
-const errorhandler = require("errorhandler");
-const http = require("http");
-const routes = require('./routes');
+import express from 'express';
+import errorhandler from 'errorhandler';
+import http from 'http';
+import bodyParser from 'body-parser';
+import {index} from './routes/index';
 
 const app = express();
 
 // Configuration
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
+app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 app.engine('jsx', require('express-react-views').createEngine());
 
 app.set('port', process.env.PORT || 3000);
 
-var env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'development';
+
 if ('development' == env) {
   app.use(errorhandler({ dumpExceptions: true, showStack: true }));
 } else {
@@ -26,7 +24,7 @@ if ('development' == env) {
 }
 
 // Routes
-app.get('/', routes.index);
+app.get('/', index);
 
 http.createServer(app).listen(app.get('port'),
     function(){
